@@ -1,6 +1,0 @@
-30 22 * * * php /home/wwwroot/SSR_Panel/xcat sendDiaryMail
-*/1 * * * * php /home/wwwroot/SSR_Panel/xcat synclogin
-*/1 * * * * php /home/wwwroot/SSR_Panel/xcat syncvpn
-0 0 * * * php -n /home/wwwroot/SSR_Panel/xcat dailyjob
-*/1 * * * * php /home/wwwroot/SSR_Panel/xcat checkjob    
-*/1 * * * * php -n /home/wwwroot/SSR_Panel/xcat sync
