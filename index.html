@@ -93,14 +93,9 @@
 				}
 			</script>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
-			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-92116884-3"></script>
 			<script>
-  				window.dataLayer = window.dataLayer || [];
-  				function gtag(){dataLayer.push(arguments);}
-  				gtag('js', new Date());
-
-  				gtag('config', 'UA-92116884-3');
-			</script>
-				
+			window.ga_tid = "UA-92116884-3"; // {String} The trackerID of your site.
+			window.ga_api = "https://api.ineko.cc/ga/"; // {String} The route of your cloudflare workers you just registered before.
+			</script>	
 	</body>
 </html>
