@@ -1,0 +1,37 @@
+{
+  "name": "ineko-cc",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "verify": "node scripts/verify.mjs",
+    "wallpapers": "node scripts/convert-wallpapers.mjs"
+  },
+  "dependencies": {
+    "@astrojs/react": "^6.0.4",
+    "@gsap/react": "^2.1.2",
+    "@react-three/fiber": "^9.7.0",
+    "@react-three/postprocessing": "^3.0.5",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@types/three": "^0.185.4",
+    "astro": "^7.2.4",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "postprocessing": "^6.39.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "sharp": "^0.35.3",
+    "three": "^0.185.1"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,49 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = '老周的小站', description = 'GiriNeko 的流光札记。先当人，再当剑主。' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN" data-form="sheathed" data-flash="off">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#F3E6D4" />
+    <title>{title}</title>
+    <link rel="shortcut icon" href="https://static.ineko.cc/images/favicon.png" />
+    <link rel="preload" as="image" href="/wallpapers/desktop.webp" media="(orientation: landscape) and (min-aspect-ratio: 4/5)" />
+    <link rel="preload" as="image" href="/wallpapers/mobile.webp" media="(orientation: portrait), (max-aspect-ratio: 4/5)" />
+    <script is:inline>
+      (function () {
+        var key = 'ineko-form';
+        var form = 'sheathed';
+        try {
+          var saved = localStorage.getItem(key);
+          if (saved === 'sheathed' || saved === 'unsheathed') form = saved;
+          else if (window.matchMedia('(prefers-color-scheme: dark)').matches) form = 'unsheathed';
+        } catch (e) {}
+        var root = document.documentElement;
+        root.dataset.form = form;
+        root.style.colorScheme = form === 'unsheathed' ? 'dark' : 'light';
+        var theme = document.querySelector('meta[name="theme-color"]');
+        if (theme) theme.setAttribute('content', form === 'unsheathed' ? '#070B0E' : '#F3E6D4');
+        var flash = 'off';
+        try {
+          if (localStorage.getItem('ineko-flash') === 'on') flash = 'on';
+        } catch (e) {}
+        root.dataset.flash = flash;
+      })();
+    </script>
+    <script is:inline async src="https://stat.ineko.cc/script.js" data-website-id="8ce31511-60a0-422f-b20b-510e70a95c87"></script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
