@@ -12,7 +12,7 @@ export default defineConfig({
         output: {
           manualChunks(id) {
             if (id.includes('three') || id.includes('@react-three')) return 'webgl';
-            if (id.includes('gsap') || id.includes('lenis')) return 'motion';
+            if (id.includes('gsap')) return 'motion';
           },
         },
       },

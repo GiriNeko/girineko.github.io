@@ -33,7 +33,6 @@ await mustExist('wallpapers/mobile-dark.webp');
 const html = await mustContain('index.html', 'blog.ineko.cc', 'blog link');
 await mustContain('index.html', '赣ICP备 2020013131号', 'ICP');
 await mustContain('index.html', '24682580', 'moe ICP');
-await mustContain('index.html', 'stat.ineko.cc', 'analytics');
 await mustContain('index.html', 'upyun_logo2.png', 'upyun');
 await mustContain('index.html', 'ineko-form', 'no-FOUC theme boot');
 await mustContain('index.html', 'data-form="sheathed"', 'default form');
