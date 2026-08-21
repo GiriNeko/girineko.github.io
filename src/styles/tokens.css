@@ -15,7 +15,7 @@
   --fg: var(--ink);
   --muted: color-mix(in srgb, var(--ink) 62%, transparent);
   --line: var(--osmanthus);
-  --card: color-mix(in srgb, var(--warm) 42%, transparent);
+  --card: rgb(232 213 188 / 0.42);
   --card-solid: color-mix(in srgb, var(--warm) 88%, var(--paper));
   --glow: color-mix(in srgb, var(--hint-qing) 35%, transparent);
   --accent: var(--hint-qing);
@@ -34,7 +34,7 @@ html[data-form='unsheathed'] {
   --fg: var(--frost);
   --muted: color-mix(in srgb, var(--frost) 62%, transparent);
   --line: var(--qingming);
-  --card: color-mix(in srgb, var(--qingming-deep) 42%, transparent);
+  --card: rgb(14 61 58 / 0.42);
   --card-solid: color-mix(in srgb, var(--qingming-deep) 88%, var(--void));
   --glow: color-mix(in srgb, var(--qingming) 55%, transparent);
   --accent: var(--qingming);
