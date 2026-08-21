@@ -4,7 +4,9 @@ import Wallpaper from '../components/Wallpaper.astro';
 import DiaryCard from '../components/DiaryCard.astro';
 import FormToggle from '../components/FormToggle';
 import FlashToggle from '../components/FlashToggle';
+import AutoToggle from '../components/AutoToggle';
 import Atmosphere from '../components/Atmosphere';
+import { footer } from '../config';
 ---
 
 <Base>
@@ -13,7 +15,10 @@ import Atmosphere from '../components/Atmosphere';
 
   <div class="stage">
     <header class="topbar">
-      <FlashToggle client:load />
+      <div class="toggle-cluster">
+        <AutoToggle client:load />
+        <FlashToggle client:load />
+      </div>
       <FormToggle client:load />
     </header>
 
@@ -22,19 +27,19 @@ import Atmosphere from '../components/Atmosphere';
     </main>
 
     <footer class="site-footer">
-      <p class="credit">Made with ❤ by GiriNeko</p>
+      <p class="credit">{footer.credit}</p>
       <p>
         本站由
-        <a href="https://console.upyun.com/register/?invite=Byj3-zRKw">
-          <img src="https://static.ineko.cc/icons/upyun_logo2.png" alt="又拍云" />
+        <a href={footer.upyun.href}>
+          <img src={footer.upyun.src} alt={footer.upyun.alt} />
         </a>
         提供 CDN、云储存服务
       </p>
       <p>
-        <a href="https://beian.miit.gov.cn" target="_blank" rel="noreferrer">赣ICP备 2020013131号</a>
+        <a href={footer.icp.href} target="_blank" rel="noreferrer">{footer.icp.label}</a>
         {' | '}
-        <a href="https://icp.gov.moe" target="_blank" rel="noreferrer">萌ICP备</a>
-        <a href="https://icp.gov.moe/?keyword=24682580" target="_blank" rel="noreferrer"> 24682580号</a>
+        <a href={footer.moe.href} target="_blank" rel="noreferrer">{footer.moe.label}</a>
+        <a href={footer.moe.keyword} target="_blank" rel="noreferrer"> {footer.moe.number}</a>
       </p>
     </footer>
   </div>
