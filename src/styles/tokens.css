@@ -1,0 +1,44 @@
+:root {
+  color-scheme: light;
+  --paper: #f3e6d4;
+  --ink: #2a221c;
+  --osmanthus: #c4a574;
+  --warm: #e8d5bc;
+  --hint-qing: #5b8a86;
+  --void: #070b0e;
+  --qingming: #2ec4b6;
+  --qingming-deep: #0e3d3a;
+  --frost: #e8f4f2;
+  --pupil: #c23b3b;
+
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --muted: color-mix(in srgb, var(--ink) 62%, transparent);
+  --line: var(--osmanthus);
+  --card: color-mix(in srgb, var(--warm) 22%, transparent);
+  --card-solid: color-mix(in srgb, var(--warm) 88%, var(--paper));
+  --glow: color-mix(in srgb, var(--hint-qing) 35%, transparent);
+  --accent: var(--hint-qing);
+  --cta: var(--ink);
+  --danger: var(--pupil);
+  --shadow: color-mix(in srgb, var(--ink) 18%, transparent);
+  --footer: color-mix(in srgb, var(--ink) 82%, transparent);
+
+  --font-diary: Palatino, "Songti SC", "Noto Serif SC", "Source Han Serif SC", serif;
+  --font-ui: "Noto Sans SC", "Source Han Sans SC", system-ui, sans-serif;
+}
+
+html[data-form='unsheathed'] {
+  color-scheme: dark;
+  --bg: var(--void);
+  --fg: var(--frost);
+  --muted: color-mix(in srgb, var(--frost) 62%, transparent);
+  --line: var(--qingming);
+  --card: color-mix(in srgb, var(--qingming-deep) 22%, transparent);
+  --card-solid: color-mix(in srgb, var(--qingming-deep) 88%, var(--void));
+  --glow: color-mix(in srgb, var(--qingming) 55%, transparent);
+  --accent: var(--qingming);
+  --cta: var(--frost);
+  --shadow: color-mix(in srgb, #000 55%, transparent);
+  --footer: color-mix(in srgb, var(--frost) 88%, transparent);
+}
