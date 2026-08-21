@@ -1,31 +1,38 @@
 ---
 import '../styles/global.css';
+import { defaults, site, storageKeys, theme, wallpapers } from '../config';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const { title = '老周的小站', description = 'GiriNeko 的流光札记。先当人，再当剑主。' } = Astro.props;
+const { title = site.title, description = site.description } = Astro.props;
+const boot = {
+  keys: storageKeys,
+  defaults,
+  theme,
+};
 ---
 
 <!doctype html>
-<html lang="zh-CN" data-form="sheathed" data-flash="off" data-auto="on">
+<html lang={site.lang} data-form="sheathed" data-flash={defaults.flash} data-auto={defaults.auto}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#F3E6D4" />
+    <meta name="theme-color" content={theme.sheathed.color} />
     <title>{title}</title>
-    <link rel="shortcut icon" href="https://static.ineko.cc/images/favicon.png" />
-    <link rel="preload" as="image" href="/wallpapers/desktop.webp" media="(orientation: landscape) and (min-aspect-ratio: 4/5)" />
-    <link rel="preload" as="image" href="/wallpapers/mobile.webp" media="(orientation: portrait), (max-aspect-ratio: 4/5)" />
-    <script is:inline>
+    <link rel="shortcut icon" href={site.favicon} />
+    <link rel="preload" as="image" href={wallpapers.sheathed.desktop} media={`not ${wallpapers.query}`} />
+    <link rel="preload" as="image" href={wallpapers.sheathed.mobile} media={wallpapers.query} />
+    <script is:inline define:vars={{ boot }}>
       (function () {
         var root = document.documentElement;
-        var auto = 'on';
+        var auto = boot.defaults.auto;
         try {
-          if (localStorage.getItem('ineko-auto') === 'off') auto = 'off';
+          var savedAuto = localStorage.getItem(boot.keys.auto);
+          if (savedAuto === 'on' || savedAuto === 'off') auto = savedAuto;
         } catch (e) {}
         root.dataset.auto = auto;
         var form = 'sheathed';
@@ -33,18 +40,20 @@ const { title = '老周的小站', description = 'GiriNeko 的流光札记。先
           if (auto === 'on') {
             if (window.matchMedia('(prefers-color-scheme: dark)').matches) form = 'unsheathed';
           } else {
-            var saved = localStorage.getItem('ineko-form');
+            var saved = localStorage.getItem(boot.keys.form);
             if (saved === 'sheathed' || saved === 'unsheathed') form = saved;
             else if (window.matchMedia('(prefers-color-scheme: dark)').matches) form = 'unsheathed';
           }
         } catch (e) {}
+        var next = boot.theme[form];
         root.dataset.form = form;
-        root.style.colorScheme = form === 'unsheathed' ? 'dark' : 'light';
-        var theme = document.querySelector('meta[name="theme-color"]');
-        if (theme) theme.setAttribute('content', form === 'unsheathed' ? '#070B0E' : '#F3E6D4');
-        var flash = 'off';
+        root.style.colorScheme = next.scheme;
+        var themeMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeMeta) themeMeta.setAttribute('content', next.color);
+        var flash = boot.defaults.flash;
         try {
-          if (localStorage.getItem('ineko-flash') === 'on') flash = 'on';
+          var savedFlash = localStorage.getItem(boot.keys.flash);
+          if (savedFlash === 'on' || savedFlash === 'off') flash = savedFlash;
         } catch (e) {}
         root.dataset.flash = flash;
       })();

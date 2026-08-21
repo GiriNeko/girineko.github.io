@@ -1,33 +1,27 @@
 ---
-const sets = {
-  sheathed: {
-    desktop: '/wallpapers/desktop.webp',
-    mobile: '/wallpapers/mobile.webp',
-    alt: '叶瞬光合鞘立绘',
-  },
-  unsheathed: {
-    desktop: '/wallpapers/desktop-dark.webp',
-    mobile: '/wallpapers/mobile-dark.webp',
-    alt: '叶瞬光明心境立绘',
-  },
-} as const;
+import { wallpapers, type FormState } from '../config';
+
+const forms = ['sheathed', 'unsheathed'] as const satisfies FormState[];
 ---
 
 <div class="wallpaper" aria-hidden="true">
   {
-    Object.entries(sets).map(([form, urls]) => (
-      <picture class={`wall-${form}`}>
-        <source media="(orientation: portrait), (max-aspect-ratio: 4/5)" srcset={urls.mobile} type="image/webp" />
-        <img
-          src={urls.desktop}
-          alt={urls.alt}
-          width={1200}
-          height={675}
-          decoding="async"
-          loading={form === 'sheathed' ? 'eager' : 'lazy'}
-          fetchpriority={form === 'sheathed' ? 'high' : 'low'}
-        />
-      </picture>
-    ))
+    forms.map((form) => {
+      const urls = wallpapers[form];
+      return (
+        <picture class={`wall-${form}`}>
+          <source media={wallpapers.query} srcset={urls.mobile} type="image/webp" />
+          <img
+            src={urls.desktop}
+            alt={urls.alt}
+            width={urls.width}
+            height={urls.height}
+            decoding="async"
+            loading={form === 'sheathed' ? 'eager' : 'lazy'}
+            fetchpriority={form === 'sheathed' ? 'high' : 'low'}
+          />
+        </picture>
+      );
+    })
   }
 </div>

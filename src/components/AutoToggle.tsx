@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { defaults, labels } from '../config';
 import {
   applyAuto,
   applyForm,
@@ -8,26 +9,32 @@ import {
   type AutoState,
   type FormState,
 } from '../lib/form';
+import { morphTo } from '../lib/morph';
+
+function followSystem(animate: boolean) {
+  const form = systemForm();
+  if (!animate || document.documentElement.dataset.form === form) {
+    applyForm(form);
+    window.dispatchEvent(new CustomEvent<FormState>('formchange', { detail: form }));
+    return;
+  }
+  morphTo(form, { persist: false });
+  window.dispatchEvent(new CustomEvent<FormState>('formchange', { detail: form }));
+}
 
 export default function AutoToggle() {
-  const [auto, setAuto] = useState<AutoState>('on');
+  const [auto, setAuto] = useState<AutoState>(defaults.auto);
 
   useEffect(() => {
     const current = readAuto();
     applyAuto(current);
     setAuto(current);
-    if (current === 'on') {
-      const form = systemForm();
-      applyForm(form);
-      window.dispatchEvent(new CustomEvent<FormState>('formchange', { detail: form }));
-    }
+    if (current === 'on') followSystem(false);
 
     const media = window.matchMedia('(prefers-color-scheme: dark)');
     const onScheme = () => {
       if ((document.documentElement.dataset.auto || readAuto()) !== 'on') return;
-      const form = systemForm();
-      applyForm(form);
-      window.dispatchEvent(new CustomEvent<FormState>('formchange', { detail: form }));
+      followSystem(true);
     };
     media.addEventListener('change', onScheme);
 
@@ -47,11 +54,7 @@ export default function AutoToggle() {
     const next: AutoState = auto === 'on' ? 'off' : 'on';
     writeAuto(next);
     setAuto(next);
-    if (next === 'on') {
-      const form = systemForm();
-      applyForm(form);
-      window.dispatchEvent(new CustomEvent<FormState>('formchange', { detail: form }));
-    }
+    if (next === 'on') followSystem(true);
   };
 
   return (
@@ -59,10 +62,10 @@ export default function AutoToggle() {
       className="toggle auto-toggle"
       type="button"
       aria-pressed={auto === 'on'}
-      aria-label={auto === 'on' ? '关闭听凭剑引' : '开启听凭剑引，跟随系统明暗'}
+      aria-label={auto === 'on' ? `关闭${labels.auto}` : `开启${labels.auto}，跟随系统明暗`}
       onClick={onToggle}
     >
-      <span className="toggle-label">听凭剑引</span>
+      <span className="toggle-label">{labels.auto}</span>
       <span className="toggle-track" aria-hidden="true">
         <span className="toggle-thumb" />
       </span>
