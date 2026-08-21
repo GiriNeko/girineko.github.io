@@ -21,10 +21,10 @@ export default function FlashToggle() {
       className="toggle flash-toggle"
       type="button"
       aria-pressed={flash === 'on'}
-      aria-label={flash === 'on' ? '关闭爆闪' : '开启爆闪，可能诱发光敏反应'}
+      aria-label={flash === 'on' ? '关闭飞光' : '开启飞光，切换时先灭后亮'}
       onClick={onToggle}
     >
-      <span className="toggle-label">爆闪</span>
+      <span className="toggle-label">飞光</span>
       <span className="toggle-track" aria-hidden="true">
         <span className="toggle-thumb" />
       </span>

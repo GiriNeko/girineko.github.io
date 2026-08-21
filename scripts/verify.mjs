@@ -38,6 +38,8 @@ await mustContain('index.html', 'ineko-form', 'no-FOUC theme boot');
 await mustContain('index.html', 'data-form="sheathed"', 'default form');
 await mustContain('index.html', 'data-flash="off"', 'flash default off');
 await mustContain('index.html', 'ineko-flash', 'flash persistence');
+await mustContain('index.html', 'data-auto="on"', 'auto default on');
+await mustContain('index.html', 'ineko-auto', 'auto persistence');
 await mustContain('index.html', 'orientation: portrait', 'mobile art-direction');
 
 if (!html.includes('GiriNeko')) errors.push('identity GiriNeko missing');

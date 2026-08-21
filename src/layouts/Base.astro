@@ -10,7 +10,7 @@ const { title = '老周的小站', description = 'GiriNeko 的流光札记。先
 ---
 
 <!doctype html>
-<html lang="zh-CN" data-form="sheathed" data-flash="off">
+<html lang="zh-CN" data-form="sheathed" data-flash="off" data-auto="on">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,14 +22,22 @@ const { title = '老周的小站', description = 'GiriNeko 的流光札记。先
     <link rel="preload" as="image" href="/wallpapers/mobile.webp" media="(orientation: portrait), (max-aspect-ratio: 4/5)" />
     <script is:inline>
       (function () {
-        var key = 'ineko-form';
+        var root = document.documentElement;
+        var auto = 'on';
+        try {
+          if (localStorage.getItem('ineko-auto') === 'off') auto = 'off';
+        } catch (e) {}
+        root.dataset.auto = auto;
         var form = 'sheathed';
         try {
-          var saved = localStorage.getItem(key);
-          if (saved === 'sheathed' || saved === 'unsheathed') form = saved;
-          else if (window.matchMedia('(prefers-color-scheme: dark)').matches) form = 'unsheathed';
+          if (auto === 'on') {
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) form = 'unsheathed';
+          } else {
+            var saved = localStorage.getItem('ineko-form');
+            if (saved === 'sheathed' || saved === 'unsheathed') form = saved;
+            else if (window.matchMedia('(prefers-color-scheme: dark)').matches) form = 'unsheathed';
+          }
         } catch (e) {}
-        var root = document.documentElement;
         root.dataset.form = form;
         root.style.colorScheme = form === 'unsheathed' ? 'dark' : 'light';
         var theme = document.querySelector('meta[name="theme-color"]');

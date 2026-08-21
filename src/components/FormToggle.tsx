@@ -14,6 +14,12 @@ export default function FormToggle() {
       const current = readForm();
       applyForm(current);
       setForm(current);
+      const onForm = (event: Event) => {
+        const next = (event as CustomEvent<FormState>).detail;
+        if (next === 'sheathed' || next === 'unsheathed') setForm(next);
+      };
+      window.addEventListener('formchange', onForm);
+      return () => window.removeEventListener('formchange', onForm);
     },
     { scope: root },
   );

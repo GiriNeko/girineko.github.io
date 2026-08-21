@@ -63,7 +63,7 @@ function Dust() {
     if (!mesh) return;
     const attr = mesh.geometry.attributes.position as THREE.BufferAttribute;
     for (let i = 0; i < speeds.length; i++) {
-      attr.array[i * 3 + 1] += speeds[i] * delta * (0.15 + current.current * 0.85);
+      attr.array[i * 3 + 1] += speeds[i] * delta * (0.15 + current.current * 1.55);
       if (attr.array[i * 3 + 1] > 2.6) attr.array[i * 3 + 1] = -2.6;
     }
     attr.needsUpdate = true;

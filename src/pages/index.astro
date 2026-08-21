@@ -4,6 +4,7 @@ import Wallpaper from '../components/Wallpaper.astro';
 import DiaryCard from '../components/DiaryCard.astro';
 import FormToggle from '../components/FormToggle';
 import FlashToggle from '../components/FlashToggle';
+import AutoToggle from '../components/AutoToggle';
 import Atmosphere from '../components/Atmosphere';
 ---
 
@@ -13,7 +14,10 @@ import Atmosphere from '../components/Atmosphere';
 
   <div class="stage">
     <header class="topbar">
-      <FlashToggle client:load />
+      <div class="toggle-cluster">
+        <AutoToggle client:load />
+        <FlashToggle client:load />
+      </div>
       <FormToggle client:load />
     </header>
 
