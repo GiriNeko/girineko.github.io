@@ -1,24 +1,25 @@
 :root {
   color-scheme: light;
-  --paper: #f3e6d4;
-  --ink: #2a221c;
-  --osmanthus: #c4a574;
-  --warm: #e8d5bc;
-  --hint-qing: #5b8a86;
+  --paper: #f5e6d2;
+  --ink: #2b1c16;
+  --osmanthus: #c9a06c;
+  --warm: #ebcfb0;
+  --chestnut: #8d5340;
   --void: #070b0e;
-  --qingming: #2ec4b6;
-  --qingming-deep: #0e3d3a;
-  --frost: #e8f4f2;
+  --mingxin: #f4f7fb;
+  --mingxin-soft: #c5d0e0;
+  --mingxin-deep: #12161d;
+  --frost: #f3f6fa;
   --pupil: #c23b3b;
 
   --bg: var(--paper);
   --fg: var(--ink);
   --muted: color-mix(in srgb, var(--ink) 62%, transparent);
   --line: var(--osmanthus);
-  --card: rgb(232 213 188 / 0.42);
+  --card: rgb(235 207 176 / 0.42);
   --card-solid: color-mix(in srgb, var(--warm) 88%, var(--paper));
-  --glow: color-mix(in srgb, var(--hint-qing) 35%, transparent);
-  --accent: var(--hint-qing);
+  --glow: color-mix(in srgb, var(--osmanthus) 42%, transparent);
+  --accent: var(--chestnut);
   --cta: var(--ink);
   --danger: var(--pupil);
   --shadow: color-mix(in srgb, var(--ink) 18%, transparent);
@@ -33,12 +34,12 @@ html[data-form='unsheathed'] {
   --bg: var(--void);
   --fg: var(--frost);
   --muted: color-mix(in srgb, var(--frost) 62%, transparent);
-  --line: var(--qingming);
-  --card: rgb(14 61 58 / 0.42);
-  --card-solid: color-mix(in srgb, var(--qingming-deep) 88%, var(--void));
-  --glow: color-mix(in srgb, var(--qingming) 55%, transparent);
-  --accent: var(--qingming);
-  --cta: var(--frost);
+  --line: var(--mingxin-soft);
+  --card: rgb(18 22 29 / 0.45);
+  --card-solid: color-mix(in srgb, var(--mingxin-deep) 88%, var(--void));
+  --glow: color-mix(in srgb, var(--mingxin) 50%, transparent);
+  --accent: var(--mingxin);
+  --cta: var(--mingxin);
   --shadow: color-mix(in srgb, #000 55%, transparent);
   --footer: color-mix(in srgb, var(--frost) 88%, transparent);
 }

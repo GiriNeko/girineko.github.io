@@ -6,12 +6,14 @@ import FormToggle from '../components/FormToggle';
 import FlashToggle from '../components/FlashToggle';
 import AutoToggle from '../components/AutoToggle';
 import Atmosphere from '../components/Atmosphere';
+import WelcomeToast from '../components/WelcomeToast';
 import { footer } from '../config';
 ---
 
 <Base>
   <Wallpaper />
   <Atmosphere client:idle />
+  <WelcomeToast client:load />
 
   <div class="stage">
     <header class="topbar">

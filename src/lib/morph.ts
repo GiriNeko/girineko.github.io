@@ -13,6 +13,8 @@ function layers(next: FormState) {
     hideCopy: document.querySelector<HTMLElement>(`[data-face="${prev}"]`),
     showWall: document.querySelector<HTMLElement>(`.wall-${next}`),
     hideWall: document.querySelector<HTMLElement>(`.wall-${prev}`),
+    showToast: document.querySelector<HTMLElement>(`[data-toast-face="${next}"]`),
+    hideToast: document.querySelector<HTMLElement>(`[data-toast-face="${prev}"]`),
   };
 }
 
@@ -30,8 +32,8 @@ export function morphTo(next: FormState, options: MorphOptions = {}) {
   }
   if (document.documentElement.classList.contains('is-morphing')) return;
 
-  const { showCopy, hideCopy, showWall, hideWall } = layers(next);
-  const parts = [showCopy, hideCopy, showWall, hideWall];
+  const { showCopy, hideCopy, showWall, hideWall, showToast, hideToast } = layers(next);
+  const parts = [showCopy, hideCopy, showWall, hideWall, showToast, hideToast];
 
   const finish = () => {
     for (const el of parts) {
@@ -53,18 +55,21 @@ export function morphTo(next: FormState, options: MorphOptions = {}) {
     gsap.set(hideCopy, { autoAlpha: 1, visibility: 'visible' });
     gsap.set(showWall, { autoAlpha: 0 });
     gsap.set(showCopy, { autoAlpha: 0, visibility: 'hidden' });
+    if (hideToast) gsap.set(hideToast, { autoAlpha: 1, visibility: 'visible' });
+    if (showToast) gsap.set(showToast, { autoAlpha: 0, visibility: 'hidden' });
 
     gsap
       .timeline({
         defaults: { ease: 'power2.inOut' },
         onComplete: finish,
       })
-      .to([hideWall, hideCopy], { autoAlpha: 0, duration: 0.35 }, 0)
+      .to([hideWall, hideCopy, hideToast].filter(Boolean), { autoAlpha: 0, duration: 0.35 }, 0)
       .add(() => {
         commit(next, persist);
         gsap.set(showCopy, { visibility: 'visible', autoAlpha: 0 });
+        if (showToast) gsap.set(showToast, { visibility: 'visible', autoAlpha: 0 });
       })
-      .to([showWall, showCopy], { autoAlpha: 1, duration: 0.4 }, '+=0.08');
+      .to([showWall, showCopy, showToast].filter(Boolean), { autoAlpha: 1, duration: 0.4 }, '+=0.08');
     return;
   }
 
@@ -73,6 +78,8 @@ export function morphTo(next: FormState, options: MorphOptions = {}) {
   gsap.set(hideCopy, { autoAlpha: 1, visibility: 'visible' });
   gsap.set(showWall, { autoAlpha: 0 });
   gsap.set(hideWall, { autoAlpha: 1 });
+  if (showToast) gsap.set(showToast, { autoAlpha: 0, visibility: 'visible' });
+  if (hideToast) gsap.set(hideToast, { autoAlpha: 1, visibility: 'visible' });
 
   gsap
     .timeline({
@@ -81,6 +88,6 @@ export function morphTo(next: FormState, options: MorphOptions = {}) {
     })
     .to(hideWall, { autoAlpha: 0, duration: 0.55 }, 0)
     .to(showWall, { autoAlpha: 1, duration: 0.55 }, 0)
-    .to(hideCopy, { autoAlpha: 0, duration: 0.4 }, 0)
-    .to(showCopy, { autoAlpha: 1, duration: 0.4 }, 0.08);
+    .to([hideCopy, hideToast].filter(Boolean), { autoAlpha: 0, duration: 0.4 }, 0)
+    .to([showCopy, showToast].filter(Boolean), { autoAlpha: 1, duration: 0.4 }, 0.08);
 }

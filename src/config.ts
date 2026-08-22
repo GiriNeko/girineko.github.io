@@ -30,6 +30,23 @@ export type SocialLink = {
   external: boolean;
 };
 
+export type ToastIconId = 'sun' | 'moon';
+
+export type ToastCopy = {
+  hello: string;
+  welcome: string;
+};
+
+export type ToastPeriod = {
+  /** 起始小时（含），0–23 */
+  from: number;
+  /** 结束小时（含）。小于 from 时表示跨夜，例如 18–4 */
+  to: number;
+  icon: ToastIconId;
+  sheathed: ToastCopy;
+  unsheathed: ToastCopy;
+};
+
 export const site = {
   title: '老周的小站',
   description: 'GiriNeko 的流光札记。先当人，再当剑主。',
@@ -56,7 +73,7 @@ export const defaults = {
 
 export const theme = {
   sheathed: {
-    color: '#F3E6D4',
+    color: '#F5E6D2',
     scheme: 'light',
   },
   unsheathed: {
@@ -71,6 +88,58 @@ export const labels = {
   sheath: '合鞘',
   unsheath: '出鞘',
 } as const;
+
+export const toastIcons = {
+  sun: {
+    circle: { cx: 12, cy: 12, r: 4 },
+    rays: 'M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.1 5.1l1.6 1.6M17.3 17.3l1.6 1.6M5.1 18.9l1.6-1.6M17.3 6.7l1.6-1.6',
+  },
+  moon: {
+    path: 'M20.4 15.2A8.6 8.6 0 0 1 8.8 3.6 8.7 8.7 0 1 0 20.4 15.2Z',
+  },
+} as const satisfies Record<ToastIconId, { circle?: { cx: number; cy: number; r: number }; rays?: string; path?: string }>;
+
+export const toast = {
+  holdMs: 4500,
+  periods: [
+    {
+      from: 5,
+      to: 10,
+      icon: 'sun',
+      sheathed: { hello: '早上好', welcome: '欢迎来到我的主页' },
+      unsheathed: { hello: '早上好', welcome: '欢迎来到明心境' },
+    },
+    {
+      from: 11,
+      to: 12,
+      icon: 'sun',
+      sheathed: { hello: '中午好', welcome: '欢迎来到我的主页' },
+      unsheathed: { hello: '中午好', welcome: '欢迎来到明心境' },
+    },
+    {
+      from: 13,
+      to: 17,
+      icon: 'sun',
+      sheathed: { hello: '下午好', welcome: '欢迎来到我的主页' },
+      unsheathed: { hello: '下午好', welcome: '欢迎来到明心境' },
+    },
+    {
+      from: 18,
+      to: 4,
+      icon: 'moon',
+      sheathed: { hello: '晚上好', welcome: '欢迎来到我的主页' },
+      unsheathed: { hello: '晚上好', welcome: '欢迎来到明心境' },
+    },
+  ],
+} as const satisfies { holdMs: number; periods: readonly ToastPeriod[] };
+
+export function toastPeriodAt(hour: number) {
+  const slot = toast.periods.find((period) => {
+    const { from, to } = period;
+    return from <= to ? hour >= from && hour <= to : hour >= from || hour <= to;
+  });
+  return slot ?? toast.periods[toast.periods.length - 1];
+}
 
 export const wallpapers = {
   query: '(orientation: portrait), (max-aspect-ratio: 4/5)',
